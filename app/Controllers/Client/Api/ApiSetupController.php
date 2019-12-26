@@ -10,7 +10,7 @@ class ApiSetupController extends ResourceController {
     public function unitIndexAction() {
         $model = new UnitModel();
         $post = $this->request->getPost();
-        return $this->respond($model->datatable($post));
+        return $this->respond($model->datatable('unit_id,name,desc',$post));
     }
 
     protected function datatableResponse($data) {

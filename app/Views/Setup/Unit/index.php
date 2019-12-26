@@ -15,6 +15,7 @@
             <?= view_cell('\App\Widget\ClientTemplate::pageHeader', array('title' => 'Satuan', 'breadcrum' => array('Dashboard' => base_url(), 'Unit' => '#')))?>
             <div class="section-body">
                 <?= view_cell('\App\Widget\ClientTemplate::pageDesc', array('title' => 'Satuan', 'desc' => 'Halaman ini untuk mengelola nama - nama satuan yang digunakan'))?>
+                <?= view_cell('\App\Widget\FlashMessage::message')?>
                 <div class="row mt-sm-6">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
@@ -76,7 +77,7 @@
             buttons	: buttonList,
             columns : [
                 {
-                    "data": "m_unit_id",
+                    "data": "unit_id",
                     "width": "10px",
                     "orderable":false,
                     "searchable" : false,
@@ -87,16 +88,16 @@
                 { "data": "name" },
                 { "data": "desc" },
                 { 
-                    "data": "m_unit_id",
+                    "data": "unit_id",
                     "width": "10px",
                     "searchable" : false,
                     "orderable":false,
                     "render": function(data){
-                        return '<a href="" class="btn btn-sm btn-info"><span class="fa fa-edit"></span></a>';;
+                        return '<a href="unit/form/' + data + '" class="btn btn-sm btn-info"><span class="fa fa-edit"></span></a>';;
                     }
                 },
                 {
-                    "data": "m_unit_id",
+                    "data": "unit_id",
                     "width": "10px",
                     "searchable" : false,
                     "orderable":false,

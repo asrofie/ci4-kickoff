@@ -25,12 +25,13 @@ class BaseModel extends Model {
 	 */
 	protected $updatedField = 'updated_at';
 
-	protected function runDatatable($db, $params, $where=array(), $like=array()) {
-		return $this->select('m_unit_id,name,desc')
+	protected function runDatatable($select='*',$params, $where=array(), $like=array()) {
+		return $this->asArray()
+					->select($select)
 					->findAll();
 	}
 
-	public function datatable($params=array(), $where=array(), $like=array()) {
+	public function datatable($select='*', $params=array(), $where=array(), $like=array()) {
 		$output = array();
 		if(!empty($where)) {
 			$this->where($where);
@@ -46,7 +47,7 @@ class BaseModel extends Model {
 		}
 		$output['draw'] = $params['draw'];
 		$output['recordsFiltered'] = $this->countAllResults(false);
-		$output['data'] = $this->runDatatable($this, $params, $where, $like);
+		$output['data'] = $this->runDatatable($select, $params, $where, $like);
 		return $output;
 	}
 }

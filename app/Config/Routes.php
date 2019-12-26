@@ -62,7 +62,7 @@ $routes->setDefaultController('Web\HomeController');
 $routes->setDefaultMethod('indexAction');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
-$routes->setAutoRoute(true);
+$routes->setAutoRoute(false);
 
 /**
  * --------------------------------------------------------------------
@@ -88,9 +88,14 @@ $routes->group('client', function($route) {
 		$routeSub->group('unit', function($routeUnit) {
 			$routeUnit->get('/', 'Client/Setup/UnitController::indexAction', ['as' => 'client_unit_index']);
 			$routeUnit->match(['get', 'post'], 'form','Client/Setup/UnitController::formAction', ['as' => 'client_unit_form']);
+			$routeUnit->add('form/(:num)','Client/Setup/UnitController::formAction');
 		});
-		$routeSub->add('unit', 'Client/Setup/UnitController::indexAction', ['as' => 'client_unit_index']);
-		$routeSub->add('tax', 'Client/Setup/TaxController::indexAction', ['as' => 'client_tax_index']);
+		// $routeSub->group('office', function($routeUnit) {
+		// 	$routeUnit->get('/', 'Client/Setup/OfficeController::indexAction', ['as' => 'client_office_index']);
+		// 	$routeUnit->match(['get', 'post'], 'form/(:num)','Client/Setup/OfficeController::formAction', ['as' => 'client_office_form']);
+		// });
+		// $routeSub->add('unit', 'Client/Setup/UnitController::indexAction', ['as' => 'client_unit_index']);
+		// $routeSub->add('office', 'Client/Setup/OfficeController::indexAction', ['as' => 'client_office_index']);
 	});
 	$route->group('api', function($routeApi) {
 		$routeApi->add('unit/index', 'Client/Api/ApiSetupController::unitIndexAction', ['as' => 'client_api_unit_index']);

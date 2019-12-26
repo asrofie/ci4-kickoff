@@ -11,6 +11,8 @@ class BaseVM {
     }
 
     protected function init() {}
+    public function find($id) {}
+    public function create() {}
 
     public function getValidation() {
         return $this->validation;

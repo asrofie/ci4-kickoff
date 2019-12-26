@@ -22,7 +22,7 @@ class FlashMessage {
                 'type'=> $session->get('type'),
                 'title'=> $session->get('title'),
                 'message'=> $session->get('message')));
-            $session->remove('page_message');
+            $session->remove(array('page_message','type','message','title'));
             return $view;
         }
         return '';

@@ -2,6 +2,10 @@
 namespace App\Models;
 
 class UnitModel extends BaseModel {
-    protected $table = 'm_unit';
-    protected $primaryKey = 'm_unit_id';
+    protected $table = 'unit';
+    protected $primaryKey = 'unit_id';
+    protected $allowedFields = [
+        'name', 'desc'
+    ];
+    protected $returnType = 'App\Entities\Unit';
 }
