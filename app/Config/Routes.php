@@ -88,7 +88,12 @@ $routes->group('client', function($route) {
 		$routeSub->group('unit', function($routeUnit) {
 			$routeUnit->get('/', 'Client/Setup/UnitController::indexAction', ['as' => 'client_unit_index']);
 			$routeUnit->match(['get', 'post'], 'form','Client/Setup/UnitController::formAction', ['as' => 'client_unit_form']);
-			$routeUnit->add('form/(:num)','Client/Setup/UnitController::formAction');
+			$routeUnit->add('form/:num','Client/Setup/UnitController::formAction/$1');
+		});
+		$routeSub->group('category', function($routeUnit) {
+			$routeUnit->get('/', 'Client/Setup/CategoryController::indexAction', ['as' => 'client_category_index']);
+			$routeUnit->match(['get', 'post'], 'form/(:any)','App\Controllers\Client\Setup\CategoryController::formAction/$1', ['as' => 'client_category_form']);
+			$routeUnit->get('delete/(:any)', 'App\Controllers\Client\Setup\CategoryController::deleteAction/$1', ['as' => 'client_category_delete']);
 		});
 		// $routeSub->group('office', function($routeUnit) {
 		// 	$routeUnit->get('/', 'Client/Setup/OfficeController::indexAction', ['as' => 'client_office_index']);
@@ -99,6 +104,7 @@ $routes->group('client', function($route) {
 	});
 	$route->group('api', function($routeApi) {
 		$routeApi->add('unit/index', 'Client/Api/ApiSetupController::unitIndexAction', ['as' => 'client_api_unit_index']);
+		$routeApi->add('category/index', 'Client/Api/ApiSetupController::categoryIndexAction', ['as' => 'client_api_category_index']);
 	});
 });
 $routes->get('client', 'Client/HomeController::indexAction');
