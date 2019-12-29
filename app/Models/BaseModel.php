@@ -26,18 +26,9 @@ class BaseModel extends Model {
 	protected $updatedField = 'updated_at';
 
 	protected function runDatatable($select='*',$params, $where=array(), $like=array()) {
-		return $this->asArray()
-					->select($select)
-					->findAll();
-	}
-
-	public function datatable($select='*', $params=array(), $where=array(), $like=array()) {
-		$output = array();
 		if(!empty($where)) {
 			$this->where($where);
 		}
-		$output['recordsTotal'] = $this->countAllResults(false);
-		$this->limit(intval($params['length']), intval($params['start']));
 		if(!empty($like)) {
 			$this->group();
 			foreach($like as $key => $val) {
@@ -45,9 +36,19 @@ class BaseModel extends Model {
 			}
 			$this->endGroup();
 		}
+		return $this->asArray()
+					->select($select);
+	}
+
+	public function datatable($select='*', $params=array(), $where=array(), $like=array()) {
+		$output = array();
+		// $this->runDatatable($select, $params, null, null);
+		$output['recordsTotal'] = $this->countAllResults(false);
+		$this->limit(intval($params['length']), intval($params['start']));
 		$output['draw'] = $params['draw'];
+		// $this->runDatatable($select, $params, $where, $like);
 		$output['recordsFiltered'] = $this->countAllResults(false);
-		$output['data'] = $this->runDatatable($select, $params, $where, $like);
+		$output['data'] = $this->runDatatable($select, $params, $where, $like)->asArray()->findAll();
 		return $output;
 	}
 }

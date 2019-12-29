@@ -1,10 +1,10 @@
 <?php
 namespace App\ViewModel;
 
-use App\Entities\Category;
-use App\Models\CategoryModel;
+use App\Entities\Video;
+use App\Models\VideoModel;
 
-class CategoryVM extends BaseVM {
+class VideoVM extends BaseVM {
     private $model;
     public $insertRules= array(
         'name'  => 'required|min_length[2]',
@@ -26,11 +26,7 @@ class CategoryVM extends BaseVM {
     }
 
     protected function init() {
-        $this->model = new CategoryModel();
-    }
-
-    public function findAll() {
-        return $this->model->where('is_deleted', 'N')->findAll();
+        $this->model = new VideoModel();
     }
 
     public function find($id) {
@@ -47,11 +43,19 @@ class CategoryVM extends BaseVM {
         return TRUE;
     }
 
-    public function create() {
-        $obj = new Category();
-        $obj->name='';
-        $obj->category_id=NULL;
-        $obj->desc='';
+    public function create($post=NULL) {
+        $obj = new Video($post);
+        if(!$post) {
+            $obj->video_id=NULL;
+            $obj->name='';
+            $obj->desc='';
+            $obj->category_id=NULL;
+            $obj->author='';
+            $obj->link='';
+            $obj->tag='';
+            $obj->channel='';
+            $obj->channel_link='';
+        }
         return $obj;
     }
 
@@ -64,7 +68,7 @@ class CategoryVM extends BaseVM {
                 $data->desc = $post['desc'];
             }
             else {
-                $data=new Category($post);
+                $data=new Video($post);
             }
             $this->model->save($data);
             return NULL;
