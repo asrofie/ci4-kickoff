@@ -2,6 +2,7 @@
 namespace App\Controllers\Client\Api;
 
 use App\Models\CategoryModel;
+use App\Models\ClientModel;
 use App\Models\UnitModel;
 use App\Models\VideoModel;
 use CodeIgniter\RESTful\ResourceController;
@@ -25,6 +26,12 @@ class ApiSetupController extends ResourceController {
         $model = new VideoModel();
         $post = $this->request->getPost();
         return $this->respond($model->datatable('video.video_id,video.name,video.link,category.name as category,video.author,video.channel,video.channel_link',$post,array('video.is_deleted' => 'N')));
+    }
+
+    public function clientIndexAction() {
+        $model = new ClientModel();
+        $post = $this->request->getPost();
+        return $this->respond($model->datatable('client_id, name, email, client_type,register_at,verify_at', $post, array('client.is_deleted' => 'N')));
     }
 
     protected function datatableResponse($data) {

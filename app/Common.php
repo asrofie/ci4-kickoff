@@ -14,4 +14,17 @@
  * @link: https://codeigniter4.github.io/CodeIgniter4/
  */
 
-defined('APP_NAME')        || define('APP_NAME', 'KICKOFF'); // no errors
+defined('APP_NAME')        || define('APP_NAME', 'KICKOFF');
+defined('CLIENT_TYPE_FREE')|| define('CLIENT_TYPE_FREE', 'freemium');
+defined('CLIENT_TYPE_P1')  || define('CLIENT_TYPE_P1', 'premium_1');
+defined('CLIENT_TYPE_P2')  || define('CLIENT_TYPE_P2', 'premium_2');
+
+if (!function_exists('appGetClientType')) {
+    function appGetClientType() {
+        return array(
+            CLIENT_TYPE_FREE => 'Free',
+            CLIENT_TYPE_P1   => 'Paket 1',
+            CLIENT_TYPE_P2   => 'Paket 2',
+        );
+    }
+}

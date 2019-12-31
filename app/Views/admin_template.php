@@ -109,6 +109,7 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Setup</span></a>
               <ul class="dropdown-menu">
+              <li><a class="nav-link" href="<?= base_url('client/setup/client');?>">Client</a></li>
                 <li><a class="nav-link" href="<?= base_url('client/setup/unit');?>">Satuan</a></li>
                 <li><a class="nav-link" href="<?= base_url('client/setup/category');?>">Kategori</a></li>
                 <li><a class="nav-link" href="<?= base_url('client/setup/video');?>">Video</a></li>

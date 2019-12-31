@@ -1,6 +1,7 @@
 <?php
 namespace App\Widget;
 
+use App\Models\PersonModel;
 use Config\Services;
 
 class ClientTemplate {
@@ -12,11 +13,12 @@ class ClientTemplate {
     public function __construct() {
         $this->session = Services::sessionLogin();
         $this->employee = $this->session->getEmployee();
-        $this->person=$this->employee['person'];
+        $person = new PersonModel();
+        $this->person= $person->find($this->employee['person_id']);
     }
 
     public function getEmployeeName() {
-        return $this->person['name'];
+        return $this->person->name;
     }
 
     public function pageHeader($title, $breadcrum=array()) {
